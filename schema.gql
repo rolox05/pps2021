@@ -1,0 +1,142 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Persona {
+  id: String!
+  nombre: String!
+  apellido: String!
+  dni: Float!
+  legajo: Float!
+  fechaNac: DateTime
+  domicilios: [Domicilio!]
+  lastUpdatedAt: DateTime!
+  createdAt: DateTime
+  deletedAt: String
+  version: Float
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Domicilio {
+  id: String!
+  calle: String!
+  numero: String!
+  persona: Persona
+  departamento: Departamento
+  lastUpdatedAt: DateTime!
+  createdAt: DateTime
+  deletedAt: String
+  version: Float
+}
+
+type Departamento {
+  id: String!
+  nombre: String!
+  codPostal: Float!
+  domicilio: [Domicilio!]
+  provincia: Provincia
+  lastUpdatedAt: DateTime!
+  createdAt: DateTime
+  deletedAt: String
+  version: Float
+}
+
+type Provincia {
+  id: String!
+  nombre: String!
+  poblacion: Float
+  departamentos: [Departamento!]
+  pais: Pais
+  lastUpdatedAt: DateTime!
+  createdAt: DateTime
+  deletedAt: String
+  version: Float
+}
+
+type Pais {
+  id: String!
+  nombre: String!
+  poblacion: Float
+  provincias: [Provincia!]
+  lastUpdatedAt: DateTime!
+  createdAt: DateTime
+  deletedAt: String
+  version: Float
+}
+
+type UpdatePersonaOutput {
+  id: String
+  nombre: String
+  apellido: String
+  dni: Float
+  legajo: Float
+  fechaNac: DateTime
+}
+
+type Query {
+  personas: [Persona!]!
+  persona(personaId: String!): Persona!
+  personaUpdated(personaId: String!): Persona!
+  domicilios: [Domicilio!]!
+  departamentos: [Departamento!]!
+  Provincias: [Provincia!]!
+  Paises: [Pais!]!
+}
+
+type Mutation {
+  createPersona(createPersonaInput: CreatePersonaInput!): Persona!
+  updatePersona(updatePersonaInput: UpdatePersonaInput!): Persona!
+  createDomicilio(createDomicilioInput: CreateDomicilioInput!): Domicilio!
+  createDepartamento(createDepartamentoInput: CreateDepartamentoInput!): Departamento!
+  createProvincia(createProvinciaInput: CreateProvinciaInput!): Provincia!
+  createPais(createPaisInput: CreatePaisInput!): Pais!
+}
+
+input CreatePersonaInput {
+  nombre: String!
+  apellido: String!
+  dni: Float!
+  legajo: Float!
+  fechaNac: DateTime
+}
+
+input UpdatePersonaInput {
+  personaId: String!
+  nombre: String
+  apellido: String
+  dni: Float
+  legajo: Float
+  fechaNac: DateTime
+}
+
+input CreateDomicilioInput {
+  calle: String!
+  numero: String!
+  personaId: String!
+  departamentoId: String!
+}
+
+input CreateDepartamentoInput {
+  nombre: String!
+  codPostal: Float!
+  provinciaId: String!
+}
+
+input CreateProvinciaInput {
+  nombre: String!
+  poblacion: Float!
+  paisId: String!
+}
+
+input CreatePaisInput {
+  nombre: String!
+  poblacion: Float!
+}
+
+type Subscription {
+  personaUpdated(personaId: String!): UpdatePersonaOutput!
+}
